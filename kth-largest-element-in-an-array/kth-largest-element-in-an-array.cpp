@@ -2,6 +2,7 @@ class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {
 
+        random_shuffle(std::begin(nums),std::end(nums));
         int st=0,en=nums.size()-1;
         int n = nums.size();
         int ind = 0;
