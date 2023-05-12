@@ -2,11 +2,13 @@ class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         unordered_map<int,int> mp;
+        int n = 0;
         for(int i=0;i<nums.size();i++){
             mp[nums[i]]++;
+            n = max(n,mp[nums[i]]);
         }
 
-        int n = nums.size();
+        //int n = nums.size();
         vector<int> bucket[n+1];
 
         for(auto it=mp.begin();it!=mp.end();it++){
