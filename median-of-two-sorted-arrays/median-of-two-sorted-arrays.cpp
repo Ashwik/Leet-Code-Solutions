@@ -10,7 +10,7 @@ public:
         // to make sure complexity is o(log(min(m,n))) 
         int st=0,en=n1;
 
-        while(st<=en){
+        while(st<=en){//st<=en to reach edge cases 
             int cut1 = (st+en)/2;
             int cut2 = (n1+n2+1)/2 - cut1; // nums1:6,nums2:5, cut1 at 3,cut2 at 3
 
