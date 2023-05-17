@@ -14,7 +14,6 @@ public:
             }
         }
         int minutes = 0;
-        int arr[] = {-1,0,1,0,-1};
 
         while(fresh>0 && !q.empty()){
             int len = q.size();
@@ -22,7 +21,8 @@ public:
                 int x = q.front().first;
                 int y = q.front().second;
                 q.pop();
-               
+
+                int arr[] = {-1,0,1,0,-1};
                 for(int i =0,j=1;i<4;i++,j++){
                     int dx = x + arr[i];
                     int dy = y + arr[j];
