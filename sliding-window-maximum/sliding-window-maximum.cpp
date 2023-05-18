@@ -6,17 +6,17 @@ public:
 
         for(int i=0;i<nums.size();i++){
 
-            if(i>=k && nums[i-k]==dq.front()){
+            if(!dq.empty() && i-k==dq.front()){
                 dq.pop_front();
             }
 
-            while(!dq.empty()&&nums[i]>dq.back()){
+            while(!dq.empty()&&nums[i]>nums[dq.back()]){
                 dq.pop_back();
             }
 
-            dq.push_back(nums[i]);
+            dq.push_back(i);
             if(i>=k-1){
-                ans.push_back(dq.front());
+                ans.push_back(nums[dq.front()]);
             }
 
         }
