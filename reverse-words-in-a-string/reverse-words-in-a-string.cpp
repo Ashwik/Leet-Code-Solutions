@@ -11,7 +11,7 @@ public:
             if(s[i]==' '){
                 if(str!=""){
                     reverse(str.begin(),str.end());
-                    ans += str + " ";
+                    ans.append(str + " ");
                 }
                 str = "";
             }else{
@@ -21,7 +21,7 @@ public:
 
         if(str!=""){
              reverse(str.begin(),str.end());
-             ans += str;
+             ans.append(str);
         }else{
             ans.erase(ans.begin()+ans.size()-1);
         }
