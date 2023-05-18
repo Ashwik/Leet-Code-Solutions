@@ -45,32 +45,25 @@ public:
         }else if(lists.size()==1){
             return lists[0];
         }
-    
-        
-        // while(last!=0){
-            
-        //     start = 0;
-        //     temp = last;
-            
-        //     while(start<temp){
-                
-        //         lists[start] = mergelists(lists[start],lists[temp]);
-        //         start++;
-        //         temp--;
-                
-        //     }
-        //     last = temp;        
-            
-        // }
-        ListNode* cur;
-        ListNode* prev = lists[0];
-        ListNode* res = prev;
 
-        for(int i=1;i<lists.size();i++){
-            cur = lists[i];
-            res = mergelists(cur,prev);
-            prev = res;
+        int start,last=lists.size()-1,temp;
+        
+        while(last!=0){
+            
+            start = 0;
+            temp = last;
+            
+            while(start<temp){
+                
+                lists[start] = mergelists(lists[start],lists[temp]);
+                start++;
+                temp--;
+                
+            }
+            last = temp;        
+            
         }
-        return res;
+    
+        return lists[0];
     }
 };
