@@ -1,31 +1,53 @@
 class Solution {
 public:
+
+    void reversestring(string& s,int i,int j){
+
+        while(i<j){
+            swap(s[i],s[j]);
+            i++;j--;
+        }
+    }
+
+
     string reverseWords(string s) {
         
-        reverse(s.begin(),s.end());
+        int n = s.length();
+        reversestring(s,0,n-1);
 
-        string str = "";
-        string ans = "";
+        
 
-        for(int i=0;i<s.length();i++){
-            if(s[i]==' '){
-                if(str!=""){
-                    reverse(str.begin(),str.end());
-                    ans.append(str + " ");
-                }
-                str = "";
-            }else{
-                str += s[i];
+        for(int i=0;i<n;i++){
+            
+            if(s[i]==' '){continue;}
+
+            int j=i;
+            while(j<n && s[j]!=' '){
+                j++;
+            }
+            reversestring(s,i,j-1);
+            i=j;
+        }
+        
+        int i=0,j=0;
+        while(i<n && s[i]==' '){
+                i++;
+        } 
+        while(i<n){
+
+           
+            while(i<n && s[i]!=' '){
+                s[j]=s[i];i++;j++;
+            }
+            while(i<n && s[i]==' '){
+                i++;
+            } 
+            if(i!=n){
+                s[j] = ' ';j++;
             }
         }
 
-        if(str!=""){
-             reverse(str.begin(),str.end());
-             ans.append(str);
-        }else{
-            ans.erase(ans.begin()+ans.size()-1);
-        }
-        return ans;
-
+        s.resize(j);
+        return s;
     }
 };
