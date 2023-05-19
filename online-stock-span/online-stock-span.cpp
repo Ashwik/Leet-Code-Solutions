@@ -3,23 +3,20 @@ public:
     StockSpanner() {
         
     }
-    stack<int> st;
-    stack<int> num;
+    stack<pair<int,int>> st;
     int ind = 1;
     
     int next(int price) {
-        while(!st.empty() && price >= st.top()){
+        while(!st.empty() && price >= st.top().first){
             st.pop();
-            num.pop();
         }
         int res;
         if(st.empty()){
             res = ind;
         }else{
-            res = ind-num.top();
+            res = ind-st.top().second;
         }
-        st.push(price);
-        num.push(ind);
+        st.push({price,ind});
         ind++;
         return res;
     }
