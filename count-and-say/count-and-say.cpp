@@ -13,13 +13,11 @@ public:
                 if(temp[i]==temp[i-1]){
                     cnt++;
                 }else{
-                    ans += to_string(cnt);
-                    ans += temp[i-1];
+                    ans += to_string(cnt)+ temp[i-1];
                     cnt = 1;
                 }
             }
-            ans += to_string(cnt);
-            ans += temp[i-1];
+            ans += to_string(cnt)+ temp[i-1];
             len++;
         }
         return ans;
