@@ -21,12 +21,12 @@ public:
 
         while(!q.empty()){
             int len = q.size();
-            unordered_map<int,vector<int>> temp;
+            vector<pair<int,int>> v;
             while(len--){
                 root = q.front().first;
                 node = q.front().second;
                 q.pop();
-                temp[node].push_back(root->val);
+                v.push_back({root->val,node});
                 if(root->left!=NULL){
                     q.push({root->left,node-1});
                 }
@@ -34,11 +34,9 @@ public:
                     q.push({root->right,node+1});
                 }
             }
-            for(auto it=temp.begin();it!=temp.end();it++){
-                sort(it->second.begin(),it->second.end());
-                for(int i=0;i<it->second.size();i++){
-                    mp[it->first].push_back(it->second[i]);
-                }
+            sort(v.begin(),v.end());
+            for(int i=0;i<v.size();i++){
+                mp[v[i].second].push_back(v[i].first);
             }
         }
 
