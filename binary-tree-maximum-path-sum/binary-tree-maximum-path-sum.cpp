@@ -27,11 +27,7 @@ public:
         }
         
         int res;
-        if(left<=0 && right<=0){
-            res = root->val;
-        }else{
-            res = max(root->val,root->val + max(left,right));
-        }         
+        res = max(root->val,root->val + max(left,right));         
         return res;
     }
 
