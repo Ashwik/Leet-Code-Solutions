@@ -23,11 +23,11 @@ public:
             return false;
         }
         
-        deque<TreeNode*> q1;
-        deque<TreeNode*> q2;
+        queue<TreeNode*> q1;
+        queue<TreeNode*> q2;
 
-        q1.push_front(root->left);
-        q2.push_back(root->right);
+        q1.push(root->left);
+        q2.push(root->right);
 
         TreeNode* leftsub;
         TreeNode* rightsub;
@@ -38,14 +38,14 @@ public:
             }
             int len = q1.size();
             while(len--){
-                leftsub = q1.front();q1.pop_front();
-                rightsub = q2.back();q2.pop_back();
+                leftsub = q1.front();q1.pop();
+                rightsub = q2.front();q2.pop();
                 if(leftsub->left != NULL && rightsub->right != NULL){
                     if(leftsub->left->val != rightsub->right->val){
                         return false;
                     }else{
-                        q1.push_front(leftsub->left);
-                        q2.push_back(rightsub->right);
+                        q1.push(leftsub->left);
+                        q2.push(rightsub->right);
                     }
                 }else if(leftsub->left == NULL && rightsub->right == NULL){
                    
@@ -57,8 +57,8 @@ public:
                     if(leftsub->right->val != rightsub->left->val){
                         return false;
                     }else{
-                        q1.push_front(leftsub->right);
-                        q2.push_back(rightsub->left);
+                        q1.push(leftsub->right);
+                        q2.push(rightsub->left);
                     }
                 }else if(leftsub->right == NULL && rightsub->left == NULL){
                    
