@@ -19,10 +19,7 @@ public:
             return false;
         }
 
-        bool a = issymtree(lsub->left,rsub->right);
-        if(a==false){return false;}
-        bool b = issymtree(lsub->right,rsub->left);
-        return a&b;
+        return issymtree(lsub->left,rsub->right) & issymtree(lsub->right,rsub->left);
     }
 
     bool isSymmetric(TreeNode* root) {
