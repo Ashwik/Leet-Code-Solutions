@@ -31,7 +31,22 @@ public:
 
     bool isValidBST(TreeNode* root) {
         
-        return valid(root,NULL,NULL);
-
+       stack<TreeNode*> st;
+       TreeNode* left = NULL;
+       
+       while(!st.empty() || root!=NULL){
+           if(root!=NULL){
+               st.push(root);
+               root = root->left;
+           }else{
+               root = st.top();st.pop();
+               if(left!=NULL && left->val >= root->val){
+                   return false;
+               }
+               left = root;
+               root = root->right;
+           }
+       }
+        return true;
     }
 };
