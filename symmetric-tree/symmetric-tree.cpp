@@ -11,65 +11,21 @@
  */
 class Solution {
 public:
+
+    bool issymtree(TreeNode* lsub, TreeNode* rsub){
+        if(lsub == NULL && rsub == NULL){return true;}
+        if(lsub==NULL || rsub==NULL){return false;}
+        if(lsub->val != rsub->val){
+            return false;
+        }
+
+        return issymtree(lsub->left,rsub->right) & issymtree(lsub->right,rsub->left);
+    }
+
     bool isSymmetric(TreeNode* root) {
         
-
-        if(root->left == NULL && root->right == NULL){
-            return true;
-        }else if(root->left == NULL || root->right == NULL){
-            return false;
-        }
-        if(root->left->val != root->right->val){
-            return false;
-        }
-        
-        queue<TreeNode*> q1;
-        queue<TreeNode*> q2;
-
-        q1.push(root->left);
-        q2.push(root->right);
-
-        TreeNode* leftsub;
-        TreeNode* rightsub;
-
-        while(!q1.empty()){
-            if(q1.size()!=q2.size()){
-                return false;
-            }
-            int len = q1.size();
-            while(len--){
-                leftsub = q1.front();q1.pop();
-                rightsub = q2.front();q2.pop();
-                if(leftsub->left != NULL && rightsub->right != NULL){
-                    if(leftsub->left->val != rightsub->right->val){
-                        return false;
-                    }else{
-                        q1.push(leftsub->left);
-                        q2.push(rightsub->right);
-                    }
-                }else if(leftsub->left == NULL && rightsub->right == NULL){
-                   
-                }else if(leftsub->left == NULL || rightsub->right == NULL){
-                    return false;
-                }
-
-                if(leftsub->right != NULL && rightsub->left != NULL){
-                    if(leftsub->right->val != rightsub->left->val){
-                        return false;
-                    }else{
-                        q1.push(leftsub->right);
-                        q2.push(rightsub->left);
-                    }
-                }else if(leftsub->right == NULL && rightsub->left == NULL){
-                   
-                }else if(leftsub->right == NULL || rightsub->left == NULL){
-                    return false;
-                }
-                
-            }
-        }
-
-        return true;
+        if(root==NULL){return true;}
+        return issymtree(root->left,root->right);
 
     }
 };
