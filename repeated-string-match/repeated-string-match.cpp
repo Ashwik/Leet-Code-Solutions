@@ -1,73 +1,45 @@
 class Solution {
+private:
+    int BASE = 1000000;
 public:
-
-    void computelpsarray(vector<int>& lps, string& st){
-            int len = 0;
-            int en = 1;
-            lps[len] = 0;
-
-            while(en<st.length()){
-
-                if(st[len]==st[en]){
-                    len++;
-                    lps[en] = len;
-                    en++;
-                }else{
-                    if(len!=0){
-                        len = lps[len-1];
-                    }else{
-                        lps[en]=0;
-                        en++;
-                    }
-                }
-
-            }
-
-    }
-
-    bool patternmatching(string& main, string& pat, vector<int>& lps){
-
-        int i=0,j=0;
-
-        while(main.length()-i >= pat.length()-j){
-
-            if(main[i]==pat[j]){
-                i++;j++;
-            }
-            if(j==pat.length()){
-                return true;
-            }else if(i<main.length() && main[i] != pat[j]){
-                if(j!=0){
-                    j = lps[j-1];
-                }else{
-                    i++;
-                }
-            }
+    int repeatedStringMatch(string A, string B) {
+        if(A == B) return 1;
+        int count = 1;
+        string source = A;
+        while(source.size() < B.size()){
+            count++;
+            source+=A;
         }
-        return false;
-
-    }
-
-    int repeatedStringMatch(string s1, string s2) {
-        
-        
-        string str = s1;
-        int n = 1;
-        while(str.length()<s2.length()){
-            str += s1;
-            n++;
-        }
-        if(str==s2){return n;}
-        vector<int> lps(s2.length());
-        computelpsarray(lps,s2);
-
-        bool a = patternmatching(str,s2,lps);
-        if(a){return n;}
-        str += s1;
-        a = patternmatching(str,s2,lps);
-        if(a){return n+1;}
-
+        if(source == B) return count;
+        if(Rabin_Karp(source,B) != -1) return count;
+        if(Rabin_Karp(source+A,B) != -1) return count+1;
         return -1;
-
+    }
+    int Rabin_Karp(string source, string target){
+        if(source == "" or target == "") return -1;
+        int m = target.size();
+        int power = 1;
+        for(int i = 0;i<m;i++){
+            power = (power*31)%BASE;
+        }
+        int targetCode = 0;
+        for(int i = 0;i<m;i++){
+            targetCode = (targetCode*31+target[i])%BASE;
+        }
+        int hashCode = 0;
+        for(int i = 0;i<source.size();i++){
+            hashCode = (hashCode*31 + source[i])%BASE;
+            if(i<m-1) continue;
+            if(i>=m){
+                hashCode = (hashCode-source[i-m]*power)%BASE;
+            }
+            if(hashCode<0)
+                hashCode+=BASE;
+            if(hashCode == targetCode){
+                if(source.substr(i-m+1,m) == target)
+                    return i-m+1;
+            }
+        }
+        return -1;
     }
 };
