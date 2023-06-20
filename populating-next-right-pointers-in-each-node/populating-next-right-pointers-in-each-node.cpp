@@ -21,12 +21,11 @@ public:
     Node* connect(Node* root) {
         
         Node* cur;
-        Node* base;
         Node* res = root;
 
         while(root!=NULL){
             cur = new Node(0);
-            base = cur;
+            Node* base = cur;
             while(root!=NULL){
                 if(root->left!=NULL){
                     cur->next = root->left;
