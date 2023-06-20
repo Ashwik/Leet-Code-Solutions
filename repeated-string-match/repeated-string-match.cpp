@@ -50,9 +50,7 @@ public:
 
     int repeatedStringMatch(string s1, string s2) {
         
-        if(s2.length()==0){return true;}
-
-
+        
         string str = s1;
         int n = 1;
         while(str.length()<s2.length()){
