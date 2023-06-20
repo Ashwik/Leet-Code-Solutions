@@ -57,7 +57,7 @@ public:
             str += s1;
             n++;
         }
-
+        if(str==s2){return n;}
         vector<int> lps(s2.length());
         computelpsarray(lps,s2);
 
