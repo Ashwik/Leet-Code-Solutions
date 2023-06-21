@@ -29,7 +29,7 @@ public:
     bool searchtree(TreeNode* root,TreeNode* cur, int k){
         if(root==NULL){return false;}
         if(root==cur){
-            return false;
+            return searchtree(root->left,cur,k) || searchtree(root->right,cur,k);
         }
         if(root->val==k){return true;}
         if(root->val > k){return searchtree(root->left,cur,k);}
