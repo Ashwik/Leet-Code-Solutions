@@ -11,29 +11,33 @@
  */
 class Solution {
 public:
+
+    bool treetraverse(TreeNode* root,TreeNode* cur,int k){
+        if(cur==NULL){
+            return false;
+        }
+        
+        bool a = searchtree(root,cur,k-cur->val);
+        if(a){return a;}
+
+        a = treetraverse(root,cur->left,k);
+        if(a){return a;}
+        a = treetraverse(root,cur->right,k);
+        return a;
+    }
+
+    bool searchtree(TreeNode* root,TreeNode* cur, int k){
+        if(root==NULL){return false;}
+        if(root==cur){
+            return searchtree(root->left,cur,k) || searchtree(root->right,cur,k);
+        }
+        if(root->val==k){return true;}
+        if(root->val > k){return searchtree(root->left,cur,k);}
+        return searchtree(root->right,cur,k);
+    }
+
     bool findTarget(TreeNode* root, int k) {
-
-        vector<int> v;
-        stack<TreeNode*> st;
-
-        while(!st.empty() || root!= NULL){
-            if(root!=NULL){
-                st.push(root);
-                root = root->left;
-            }else{
-                root = st.top();st.pop();
-                v.push_back(root->val);
-                root = root->right;
-            }
-        }
-
-        for(int i=0,j=v.size()-1;i<j;){
-            if(v[i]+v[j]==k){return true;}
-            else if(v[i]+v[j]>k){j--;}
-            else{i++;}
-        }
-        return false;
-
+        return treetraverse(root,root,k);
     }
 
 };
