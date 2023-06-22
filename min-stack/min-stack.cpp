@@ -1,31 +1,42 @@
 class MinStack {
 public:
-    stack<int> st1;
-    stack<int> st2;
+
+    struct ListNode{
+        int val;
+        int min;
+        ListNode* next;
+        ListNode(int val,int min, ListNode* next){
+            this->val = val;
+            this->min = min;
+            this->next = next;
+        }
+    };
+
+    ListNode* head;
+
     MinStack() {
-        
+         head = NULL;
     }
     
     void push(int val) {
-        st1.push(val);
-        if(st2.empty()){
-            st2.push(val);
-        }else if(val<=st2.top()){
-            st2.push(val);
+        if(head==NULL){
+            head = new ListNode(val,val,NULL);
+        }else{
+            head = new ListNode(val,min(head->min,val),head);
         }
+
     }
     
     void pop() {
-        if(st1.top()==st2.top()){st2.pop();}
-        st1.pop();
+        head = head->next;
     }
     
     int top() {
-        return st1.top();
+        return head->val;
     }
     
     int getMin() {
-        return st2.top();
+        return head->min;
     }
 };
 
