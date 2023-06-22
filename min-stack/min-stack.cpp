@@ -9,16 +9,15 @@ public:
     void push(int val) {
         st1.push(val);
         if(st2.empty()){
-            st2.push(val);  
-        }else{
-            int res = min(val,st2.top());
-            st2.push(res);
+            st2.push(val);
+        }else if(val<=st2.top()){
+            st2.push(val);
         }
-         
     }
     
     void pop() {
-        st1.pop();st2.pop();
+        if(st1.top()==st2.top()){st2.pop();}
+        st1.pop();
     }
     
     int top() {
