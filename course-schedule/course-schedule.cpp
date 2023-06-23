@@ -18,23 +18,38 @@ public:
     }
 
 
-    bool canFinish(int numCourses, vector<vector<int>>& pre) {
+    bool canFinish(int n, vector<vector<int>>& pre) {
         
-        vector<int> adj[numCourses];
+        vector<int> adj[n];
+        vector<int> bfs,degree(n,0);
 
         for(int i=0;i<pre.size();i++){
             adj[pre[i][1]].push_back(pre[i][0]);
+            degree[pre[i][0]]++;
         }
 
-        vector<bool> visit(numCourses,false);
-        vector<bool> cycle(numCourses,false);
+        // vector<bool> visit(n,false);
+        // vector<bool> cycle(n,false);
         
-        for(int i=0;i<numCourses;i++){
-            if(visit[i]==false && dfscycle(adj,visit,cycle,i)){
-                return false;
+        for(int i=0;i<n;i++){
+            if(degree[i]==0){
+                bfs.push_back(i);
             }
         }
-        return true;
+        if(bfs.size()==n){return true;}
+        for(int i=0;i<bfs.size();i++){
+            int num = bfs[i];
+            for(int j=0;j<adj[num].size();j++){
+                int ind = adj[num][j];
+                degree[ind]--;
+                if(degree[ind]==0){
+                    bfs.push_back(ind);
+                }
+            }
+        }
+        if(bfs.size()==n){return true;}
+
+        return false;
 
     }
 };
