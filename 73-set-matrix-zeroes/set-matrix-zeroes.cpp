@@ -34,14 +34,14 @@ public:
             }
         }
 
-        for(int i=0;i<matrix.size();i++){
-            if(col){
-                matrix[i][0] = 0;
+        if(col){
+            for(int i=0;i<matrix.size();i++){
+               matrix[i][0] = 0;
             }
         }
 
-        for(int j=0;j<matrix[0].size();j++){
-            if(row){
+        if(row){
+            for(int j=0;j<matrix[0].size();j++){
                 matrix[0][j] = 0;
             }
         }
