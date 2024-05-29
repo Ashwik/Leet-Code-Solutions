@@ -19,9 +19,8 @@ public:
             for(int j=i+1;j<m;j++){
                 if(intervals[j][0]>res[1]){
                     i = j-1; break;
-                }else if(intervals[j][1]>res[1]){
-                    res[1] = intervals[j][1];
                 }
+                res[1] = max(intervals[j][1],res[1]);
                 i = j;
             }
             ans.push_back(res);
