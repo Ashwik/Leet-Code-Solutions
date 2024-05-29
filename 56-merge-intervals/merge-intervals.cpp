@@ -9,21 +9,21 @@ public:
         sort(intervals.begin(),intervals.end(), compareInterval);
         
         vector<vector<int>> ans;
-        vector<int> res(2,0);
+        int res1=0,res2=0;
 
         int m = intervals.size();
         
         for(int i=0;i<m;i++){
-            res[0] = intervals[i][0];
-            res[1] = intervals[i][1];
+            res1 = intervals[i][0];
+            res2 = intervals[i][1];
             for(int j=i+1;j<m;j++){
-                if(intervals[j][0]>res[1]){
+                if(intervals[j][0]>res2){
                     i = j-1; break;
                 }
-                res[1] = max(intervals[j][1],res[1]);
+                res2 = max(intervals[j][1],res2);
                 i = j;
             }
-            ans.push_back(res);
+            ans.push_back({res1,res2});
         }
         return ans;
     }
