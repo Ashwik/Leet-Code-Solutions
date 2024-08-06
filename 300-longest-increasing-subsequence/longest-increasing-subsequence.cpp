@@ -1,17 +1,34 @@
 class Solution {
 public:
+
+    void findnextgreatestelement(vector<int>& arr, int target){
+        int st=0,en=arr.size();
+        int mid;
+        while(st<en){
+            mid = (st+en)/2;
+            if(arr[mid]==target){return;}
+            else if(arr[mid]<target){
+                st = mid+1;
+            }else{
+                en = mid;
+            }
+        }
+        arr[st] = target;return;
+    }
+
+
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
-        vector<int> dp(n,1);
-        int res = min(1,n);
+        vector<int> v;
+        v.push_back(nums[0]);
+        
         for(int i=1;i<n;i++){
-            for(int j=0;j<i;j++){
-                if(nums[j]<nums[i]){
-                    dp[i] = max(dp[i],dp[j]+1);
-                }
+            if(nums[i]>v.back()){
+              v.push_back(nums[i]);  
+            }else{
+              findnextgreatestelement(v, nums[i]);
             }
-            res = max(res,dp[i]);
         }
-        return res;
+        return v.size();
     }
 };
