@@ -14,8 +14,8 @@ public:
         
         for(int i=1;i<=n;i++){
                 t[i][2][0] = max(t[i-1][2][0], t[i-1][2][1]+prices[i-1]);
-                t[i][2][1] = max(t[i-1][2][1], t[i-1][1][0]-prices[i-1]);
                 t[i][1][0] = max(t[i-1][1][0], t[i-1][1][1]+prices[i-1]);
+                t[i][2][1] = max(t[i-1][2][1], t[i-1][1][0]-prices[i-1]);
                 t[i][1][1] = max(t[i-1][1][1], -prices[i-1]);
         }
         return t[n][2][0];
