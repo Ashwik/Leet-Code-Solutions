@@ -33,10 +33,10 @@ public:
             st.push(i);
         }
 
-        vector<long long int> cnums;
-        cnums.push_back((long long int)nums[0]);
+        vector<long long int> cnums(n);
+        cnums[0] = nums[0];
         for(int i=1;i<n;i++){
-            cnums.push_back((long long int)nums[i]+cnums.back());
+            cnums[i] = nums[i] + cnums[i-1];
         }
 
         long long int ans = 0;
