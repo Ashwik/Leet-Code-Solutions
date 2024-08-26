@@ -8,6 +8,10 @@ public:
         queue<pair<int,int>> q;
         q.push({0,0});
         int res=0;
+
+        if(grid[m-1][n-1]==1 || grid[0][0]==1){
+            return -1;
+        }
         
         while(!q.empty()){
             int len = q.size();
