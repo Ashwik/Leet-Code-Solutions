@@ -1,33 +1,29 @@
 class Solution {
 public:
-
-    bool dfs(vector<int> adj[],vector<bool>& visit,vector<bool>& cycle, int s){
-        
-        visit[s] = true;
-        cycle[s] = true;
-        
-        for(int i=0;i<adj[s].size();i++){
-            int num = adj[s][i];
-            if(cycle[num]){return true;}
-            if(!visit[num] && dfs(adj,visit,cycle,num)){return true;}
-        }
-        cycle[s] = false;
-        return false;
-    }
-
     bool canFinish(int n, vector<vector<int>>& preq) {
+        
         vector<int> adj[n];
+        vector<int> degree(n,0);
 
         for(int i=0;i<preq.size();i++){
-            adj[preq[i][1]].push_back(preq[i][0]);
+            adj[preq[i][0]].push_back(preq[i][1]);
+            degree[preq[i][1]]++;
         }
-        vector<bool> visit(n, false);
-        vector<bool> cycle(n, false);
-
+        vector<int> bfs;
+        
         for(int i=0;i<n;i++){
-            if(visit[i]){continue;}
-            if(dfs(adj,visit,cycle,i)){return false;}
+            if(degree[i]==0){bfs.push_back(i);}
         }
-        return true;
+
+        for(int i=0;i<bfs.size();i++){
+            int ind = bfs[i];
+            for(int j=0;j<adj[ind].size();j++){
+                int num = adj[ind][j];
+                degree[num]--;
+                if(degree[num]==0){bfs.push_back(num);}
+            }
+        }
+
+        return bfs.size()==n;
     }
 };
