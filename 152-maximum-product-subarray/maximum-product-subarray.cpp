@@ -8,7 +8,9 @@ public:
         
         for(int i=1;i<nums.size();i++){
             if(nums[i]<0){
-                swap(lowVal,highVal);
+                int temp = lowVal;
+                lowVal = highVal;
+                highVal = temp;
             }
             lowVal = min(lowVal*nums[i], nums[i]);
             highVal = max(highVal*nums[i], nums[i]);
