@@ -40,5 +40,6 @@ public:
         int bstSum = 0;
         isValid(root,bstSum);
         return bstSum;
+        // bottom up solution
     }
 };
