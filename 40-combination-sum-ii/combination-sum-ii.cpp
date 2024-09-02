@@ -12,14 +12,11 @@ public:
         }
         
         for(int i=ind;i<cand.size();i++){
+            if(i!=ind && cand[i]==cand[i-1]){continue;}
             if(sum+cand[i]>target){return;}
             v.push_back(cand[i]);
             findComb(cand,target,i+1,sum+cand[i],res,v);
             v.pop_back();
-
-            while(i<cand.size()-1 && cand[i+1]==cand[i]){
-                i++;
-            }
         }
         return ;
     }
