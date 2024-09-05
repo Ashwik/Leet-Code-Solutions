@@ -1,58 +1,70 @@
 class Solution {
 public:
 
-    void merge(vector<int>&nums,int st,int mid,int en){
-
-        int i = st,j=mid;
-        int v[en-st];
-        int k = 0;
-        for(;i<mid&&j<en;){
-            if(nums[i]<=nums[j]){
-                v[k] = nums[i];k++;
+    int ans;
+    void merge(vector<int>& nums,int st,int en){
+        int mid = (st+en)/2;
+        vector<int> temp(en-st,0);
+        int i = st;
+        int j = mid;
+        int k=0;
+        while(i<mid && j<en){
+            if(nums[i]<nums[j]){
+                temp[k] = nums[i];
                 i++;
             }else{
-                v[k] = nums[j];k++;
+                temp[k] = nums[j];
                 j++;
             }
-
+            k++;
         }
+
         while(i<mid){
-           v[k] = nums[i];k++;
-            i++;
+            temp[k] = nums[i];
+            i++;k++;
         }
 
         while(j<en){
-            v[k] = nums[j];k++;
-            j++;
+            temp[k] = nums[j];
+            j++;k++;
         }
         i = st;
-        for( k=0;k<en-st;k++){
-            nums[i] = v[k];i++;
+        k = 0;
+
+        for(;i<en;i++,k++){
+            nums[i] = temp[k];
         }
 
 
     }
 
-    int  mergesort(vector<int>&nums ,int st,int en){
+    void mergeSort(vector<int>& nums,int st,int en){
+        
+        if(st>=(en-1)){return;}
+        //cout<<st<<" "<<en<<endl;
+        int mid =(st+en)/2;
 
-        if(st+1==en || st==en){return 0;}
-        int mid = (st+en)/2;
-        int ans = mergesort(nums,st,mid) + mergesort(nums,mid,en);
+        mergeSort(nums,st,mid);
+        mergeSort(nums,mid,en);
 
         for(int i=st,j=mid;i<mid;i++){
-            while(j<en&&nums[i]/2.0>nums[j]){
+            while(j<en && nums[i]/2.0 > nums[j]){
                 j++;
             }
             ans += j-mid;
         }
 
-        merge(nums,st,mid,en);
-        return ans;
+        merge(nums,st,en);
     }
 
+
     int reversePairs(vector<int>& nums) {
-        int ans;
-        ans = mergesort(nums,0,nums.size());
+        ans = 0;
+        mergeSort(nums,0,nums.size());
+        // for(int i=0;i<nums.size();i++){
+        //     cout<<nums[i]<<" ";
+        // }
+        // cout<<endl;
         return ans;
     }
 };
