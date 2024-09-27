@@ -20,17 +20,14 @@ public:
         queue<TreeNode*> q;
         q.push(root);
         while(!q.empty()){
-            int len = q.size();
-            while(len--){
-                root = q.front();q.pop();
-                if(root==NULL){
-                    str += "null,";
-                    continue;
-                }
-                str += to_string(root->val) + ",";
-                q.push(root->left);
-                q.push(root->right);
+            root = q.front();q.pop();
+            if(root==NULL){
+                str += "null,";
+                continue;
             }
+            str += to_string(root->val) + ",";
+            q.push(root->left);
+            q.push(root->right);
         }
         // cout<<str<<endl;
         return str;
