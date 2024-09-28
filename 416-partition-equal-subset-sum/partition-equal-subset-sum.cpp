@@ -23,13 +23,28 @@ public:
     }
     bool canPartition(vector<int>& nums) {
         int sum = 0;
-        for(int i=0;i<nums.size();i++){
+        int m = nums.size();
+        for(int i=0;i<m;i++){
             sum = sum+nums[i];
         }
         if(sum%2!=0){return false;}
         sum = sum/2;
-        vector<vector<int>> dp(nums.size(),vector<int>(sum+1,-1));
+        vector<vector<bool>> dp(m+1,vector<bool>(sum+1,false));
 
-        return dfs(nums,0,sum,dp);
+        for(int i=0;i<=m;i++){
+            dp[i][0] = true;
+        }
+
+        for(int i=1;i<=m;i++){
+            for(int j=1;j<=sum;j++){
+                dp[i][j] = dp[i-1][j];
+                if(j>=nums[i-1] && dp[i-1][j-nums[i-1]]){
+                    dp[i][j] = true;
+                }
+            }
+            //if(dp[i][sum]==true){return true;}
+        }
+        return dp[m][sum];
+        // return dfs(nums,0,sum,dp);
     }
 };
