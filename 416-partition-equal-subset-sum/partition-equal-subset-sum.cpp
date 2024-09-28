@@ -29,22 +29,26 @@ public:
         }
         if(sum%2!=0){return false;}
         sum = sum/2;
-        vector<vector<bool>> dp(m+1,vector<bool>(sum+1,false));
+        vector<vector<bool>> dp(2,vector<bool>(sum+1,false));
 
-        for(int i=0;i<=m;i++){
-            dp[i][0] = true;
-        }
+        // for(int i=0;i<=m;i++){
+        //     dp[i][0] = true;
+        // }
 
         for(int i=1;i<=m;i++){
+            int prev = (i-1)%2;
+            int cur = i%2;
+            dp[prev][0] = true;
+
             for(int j=1;j<=sum;j++){
-                dp[i][j] = dp[i-1][j];
-                if(j>=nums[i-1] && dp[i-1][j-nums[i-1]]){
-                    dp[i][j] = true;
+                dp[cur][j] = dp[prev][j];
+                if(j>=nums[i-1] && dp[prev][j-nums[i-1]]){
+                    dp[cur][j] = true;
                 }
             }
             //if(dp[i][sum]==true){return true;}
         }
-        return dp[m][sum];
+        return dp[m%2][sum];
         // return dfs(nums,0,sum,dp);
     }
 };
