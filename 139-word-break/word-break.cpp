@@ -12,6 +12,7 @@ public:
         bool ans = false;
         string newstr = curstr;
         if(word.count(curstr)){
+            if(dp[ind][0]!=-1){return dp[ind][0];}
             newstr = s[ind];
             ans = dfs(s,ind+1,newstr,word,dp);
         }
