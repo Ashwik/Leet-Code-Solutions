@@ -29,7 +29,8 @@ public:
         for(int i=0;i<nums.size();i++){
             sum += nums[i];
         }
-        if(sum%k!=0){return false;}
+        if(nums.size()<k || sum%k!=0){return false;}
+        if(k==1){return true;}
         int req = sum/k;
         vector<bool> visit(nums.size(),false);
 
