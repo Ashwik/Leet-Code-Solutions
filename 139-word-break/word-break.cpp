@@ -1,38 +1,29 @@
 class Solution {
 public:
 
-    bool dfs(string& s, int ind, string& curstr, unordered_set<string>& word, vector<vector<int>> &dp){
-        if(ind==s.length()){
-            if(word.count(curstr)){return true;}
-            return false;
-        }
-        if(dp[ind][curstr.length()]!=-1){
-            return dp[ind][curstr.length()];
-        }
-        bool ans = false;
-        string newstr = curstr;
-        if(word.count(curstr)){
-            if(dp[ind][0]!=-1){return dp[ind][0];}
-            newstr = s[ind];
-            ans = dfs(s,ind+1,newstr,word,dp);
-        }
-        if(ans){
-            dp[ind][0] = true;
-            return true;
-        }
-        newstr = curstr + s[ind];
-        ans = dfs(s,ind+1,newstr,word,dp);
-        dp[ind][curstr.length()] = ans;
-        return ans;
-    }
 
     bool wordBreak(string s, vector<string>& word) {
-        unordered_set<string> st;
+        
+        int n = s.length();
+        unordered_set<string> wordset;
         for(int i=0;i<word.size();i++){
-            st.insert(word[i]);
+            wordset.insert(word[i]);
         }
-        vector<vector<int>> dp(s.length(),vector<int>(s.length()+1,-1));
-        string curstr = "";
-        return dfs(s,0,curstr,st,dp);
+        if(wordset.count(s)){return true;}
+
+        vector<bool> dp(n+1,false);
+        
+        dp[0] = true;
+
+        for(int i=1;i<=n;i++){
+            for(int j=0;j<i;j++){
+                if(dp[j] && wordset.count(s.substr(j,i-j))){
+                    dp[i]=true;
+                    break;
+                }
+            }
+        }
+        return dp[n];
+        
     }
 };
