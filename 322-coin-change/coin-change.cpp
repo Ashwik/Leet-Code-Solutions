@@ -11,9 +11,10 @@ public:
             int cur = i%2;
             int prev = (i-1)%2;
             for(int j=1;j<=amount;j++){   
-                dp[cur][j] = dp[prev][j];
                 if(j>=coins[i-1] && dp[cur][j-coins[i-1]]!=INT_MAX){
-                    dp[cur][j] = min(dp[cur][j], dp[cur][j-coins[i-1]] + 1);
+                    dp[cur][j] = min(dp[prev][j], dp[cur][j-coins[i-1]] + 1);
+                }else{
+                    dp[cur][j] = dp[prev][j];
                 }
             }
         }
