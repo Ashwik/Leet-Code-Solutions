@@ -51,6 +51,7 @@ public:
             cur->next = reverseList(curStart);
             if(ans==NULL){
                 ans = cur->next;
+                delete cur;
             }
             cur = curStart;
             cur->next = newListStart;
