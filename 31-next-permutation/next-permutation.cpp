@@ -11,12 +11,12 @@ public:
                         break;
                     }
                 }
-                sort(arr.begin()+i, arr.end());
+                reverse(arr.begin()+i, arr.end());
                 break;
             }
         }
         if(i==0){
-            sort(arr.begin(), arr.end());
+            reverse(arr.begin(), arr.end());
         }
     }
 };
