@@ -10,17 +10,20 @@ class Solution:
         ans = []
 
         while(len(treelist)!=0 or root != None):
+            
             if(root!=None):
+                if(root.right!=None):
+                    treelist.append(root.right)
                 treelist.append(root)
                 root = root.left
             else:
                 root = treelist.pop()
-                if(root.right!=None):
-                    root.left = root.right
-                    root.right = None
+                if(len(treelist)!=0 and root.right==treelist[-1]):
+                    temp = treelist.pop()
+                    treelist.append(root)
+                    root = temp
                 else:
                     ans.append(root.val)
                     root = None
-
-
+    
         return ans
