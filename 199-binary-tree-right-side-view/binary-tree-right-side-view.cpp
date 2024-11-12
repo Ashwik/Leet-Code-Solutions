@@ -11,25 +11,23 @@
  */
 class Solution {
 public:
+
+    void traverse(vector<int>& ans ,int level, int& maxh, TreeNode* root){
+        if(root==NULL){return;}
+        if(level>maxh){
+            ans.push_back(root->val);
+            maxh = level;
+        }
+        traverse(ans,level+1,maxh,root->right);
+        traverse(ans,level+1,maxh,root->left);
+    }
+
     vector<int> rightSideView(TreeNode* root) {
         vector<int> ans;
         if(root==NULL){return ans;}
-        queue<TreeNode*> q;
-
-        q.push(root);
-
-        while(!q.empty()){
-            int len = q.size();
-            while(len--){
-                root = q.front();
-                q.pop();
-                if(len==0){
-                    ans.push_back(root->val);
-                }
-                if(root->left){q.push(root->left);}
-                if(root->right){q.push(root->right);}
-            }
-        }
+        ans.push_back(root->val);
+        int maxh = 0;
+        traverse(ans,0,maxh,root);
         return ans;
     }
 };
