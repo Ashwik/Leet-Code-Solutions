@@ -26,6 +26,38 @@ class Solution(object):
         :type root: Optional[TreeNode]
         :rtype: bool
         """
-
-        return self.level_order(root.left,root.right)
+        #return self.level_order(root.left,root.right)
         
+        
+        q1 = deque()
+        q2 = deque()
+        q1.append(root.left)
+        q2.append(root.right)
+
+        while(q1 and q2):
+            size1= len(q1)
+            size2 = len(q2)
+            if(size1 != size2):
+                return False
+
+            while(size1):
+                root1 = q1.popleft()
+                root2 = q2.popleft()
+                if(root1 == None and root2 == None):
+                    size1 = size1-1
+                    continue
+                elif(root1 == None or root2 == None):
+                    return False
+                
+                if(root1.val != root2.val):
+                    return False
+                
+                q1.append(root1.left)
+                q1.append(root1.right)
+                q2.append(root2.right)
+                q2.append(root2.left)
+                size1 = size1-1
+        
+        return True
+
+                
