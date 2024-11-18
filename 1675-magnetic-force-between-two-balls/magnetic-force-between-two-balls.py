@@ -7,6 +7,7 @@ class Solution:
 
         res = -1
         position.sort()
+        n = len(position)
         maxpos = position[-1] - position[0]
         minpos = 0
         # for i in range(1,len(position)):
@@ -17,7 +18,7 @@ class Solution:
             
             allocatedballs = 1
             prevpos = position[0]
-            for i in range(1,len(position)):
+            for i in range(1,n):
                 if position[i]-prevpos >= midposition:
                     allocatedballs = allocatedballs + 1
                     prevpos = position[i]
