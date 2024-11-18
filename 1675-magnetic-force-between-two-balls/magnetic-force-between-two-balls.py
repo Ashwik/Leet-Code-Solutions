@@ -8,9 +8,9 @@ class Solution:
         res = -1
         position.sort()
         maxpos = position[-1] - position[0]
-        minpos = maxpos
-        for i in range(1,len(position)):
-            minpos = min(minpos,position[i]-position[i-1])        
+        minpos = 0
+        # for i in range(1,len(position)):
+        #     minpos = min(minpos,position[i]-position[i-1])        
         
 
         def is_assign_possible(midposition):
