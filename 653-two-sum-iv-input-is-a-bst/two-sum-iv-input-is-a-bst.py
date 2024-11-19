@@ -5,36 +5,44 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+
     def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
-
-        nodelist = []
-
-        q = []
         
-        while(q or root):
-            if root:
-                q.append(root)
+        def pushleft(st, root):
+            while root:
+                st.append(root)
                 root = root.left
-            else:
-                root = q.pop()
-                nodelist.append(root.val)
+        
+        def pushright(st,root):
+            while root:
+                st.append(root)
                 root = root.right
+        
+        def nextleft(st):
+            root = st.pop()
+            pushleft(st,root.right)
+            return root.val
+        
+        def nextright(st):
+            root = st.pop()
+            pushright(st,root.left)
+            return root.val
+        
+        leftstack, rightstack = [],[]
 
-        for node in nodelist:
-            print("val:", node)
+        pushleft(leftstack,root)
+        pushright(rightstack,root)
 
-        i,j = 0,len(nodelist)-1
+        i,j = nextleft(leftstack),nextright(rightstack)
 
         while(i<j):
-            sum = nodelist[i] + nodelist[j]
+            sum = i + j
             if(sum==k):
                 return True
-            elif sum>k:
-                j = j-1
+            elif sum<k:
+                i = nextleft(leftstack)
             else:
-                i = i+1
-        
+                j = nextright(rightstack)
+
         return False
-
-
         
