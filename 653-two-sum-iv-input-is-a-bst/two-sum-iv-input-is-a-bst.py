@@ -8,41 +8,27 @@ class Solution:
 
     def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
         
-        def pushleft(st, root):
-            while root:
-                st.append(root)
-                root = root.left
-        
-        def pushright(st,root):
-            while root:
-                st.append(root)
-                root = root.right
-        
-        def nextleft(st):
-            root = st.pop()
-            pushleft(st,root.right)
-            return root.val
-        
-        def nextright(st):
-            root = st.pop()
-            pushright(st,root.left)
-            return root.val
-        
-        leftstack, rightstack = [],[]
+        def inOrder(root):
+            if root:
+                yield from inOrder(root.left)
+                yield root.val
+                yield from inOrder(root.right)
 
-        pushleft(leftstack,root)
-        pushright(rightstack,root)
+        def inOrderReversed(root):
+            if root:
+                yield from inOrderReversed(root.right)
+                yield root.val
+                yield from inOrderReversed(root.left)
 
-        i,j = nextleft(leftstack),nextright(rightstack)
+        leftGenerator = inOrder(root)
+        rightGenerator = inOrderReversed(root)
 
-        while(i<j):
-            sum = i + j
-            if(sum==k):
-                return True
-            elif sum<k:
-                i = nextleft(leftstack)
+        left, right = next(leftGenerator), next(rightGenerator)
+        while left < right:
+            if left + right == k: return True
+            if left + right < k:
+                left = next(leftGenerator)
             else:
-                j = nextright(rightstack)
-
+                right = next(rightGenerator)
         return False
         
