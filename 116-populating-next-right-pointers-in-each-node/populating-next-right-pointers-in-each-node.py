@@ -12,8 +12,9 @@ class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
 
         ans = root
+        temp = Node()
         while root:
-            cur = Node()
+            cur = temp
             temp = cur
             while root:
                 if root.left:
@@ -24,6 +25,7 @@ class Solution:
                     cur = cur.next
                 root = root.next
             root = temp.next
+            temp.next = None
 
         return ans
 
