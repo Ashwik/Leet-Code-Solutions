@@ -12,29 +12,38 @@ class Solution:
         
         if head == None: return head
 
-        d = {}
-        cur = head
+        main_node = head
+        
+        while(main_node!=None):
+            copy_node = Node(main_node.val)
+            next_main_node = main_node.next
+            main_node.next = copy_node
+            copy_node.next = next_main_node
+            main_node = next_main_node
 
-        while cur!=None:
-            new_node = Node(cur.val)
-            d[cur] = new_node
-            cur = cur.next
         
-        res = d[head]
-        cur  = res
+        main_node = head
+
+        while(main_node!=None):
+            copy_node = main_node.next
+            if main_node.random != None:
+                copy_node.random = main_node.random.next
+            main_node = copy_node.next
+
+
+        copy_node = head.next
+        ans = copy_node
+
+        while(copy_node.next!=None):
+            copy_node.next = copy_node.next.next
+            copy_node = copy_node.next
         
-        while head!=None:
-            if head.next!=None:
-                cur.next = d[head.next]
-            
-            if head.random != None:
-                cur.random = d[head.random]
-            
-            head = head.next
-            cur = cur.next
+        return ans
+
         
-        return res
-        
+
+
+
 
 
 
