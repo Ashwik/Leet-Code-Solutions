@@ -28,14 +28,24 @@ class Solution:
 
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
         
-        endA = headA
+        # endA = headA
+        # while(endA.next!=None):
+        #     endA = endA.next
 
-        while(endA.next!=None):
-            endA = endA.next
+        # endA.next = headB
+        # ans = self.findIntersectionNode(headA)
+        # endA.next = None
 
-        endA.next = headB
+        if headA == None or headB == None: return None
 
-        ans = self.findIntersectionNode(headA)
-        endA.next = None
+        posA = headA
+        posB = headB
+
+        while posA != posB:
+            if posA == None: posA = headB
+            else: posA = posA.next
+
+            if posB == None: posB = headA
+            else: posB = posB.next
         
-        return ans
+        return posA
