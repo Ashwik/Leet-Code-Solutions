@@ -15,7 +15,11 @@
  */
 class Solution {
     public int[] findMaxSum(TreeNode root, int[] ans){
-        int[] res = new int[4];
+        int[] res = new int[4]; 
+        // 0 -> minvalue of subtree
+        // 1 -> maxvalue of subtree
+        // 2 -> sum
+        // 3 -> is the subtree a bst or not 1 for not bst
         if(root==null){
             res[0]=Integer.MAX_VALUE;
             res[1]=Integer.MIN_VALUE;
@@ -30,8 +34,7 @@ class Solution {
             return res;
         }
 
-        int sum = root.val;
-        sum += left[2] + right[2];
+        int sum = root.val + left[2] + right[2];
         ans[0] = Math.max(sum,ans[0]);
         res[0]=Math.min(root.val,left[0]);
         res[1]=Math.max(root.val,right[1]);
