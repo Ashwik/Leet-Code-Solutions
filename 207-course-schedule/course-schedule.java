@@ -9,9 +9,9 @@ class Solution {
             li.add(new ArrayList<>());
         }
 
-        for(int i=0;i<prereq.length;i++){
-            degree[prereq[i][0]]++;
-            li.get(prereq[i][1]).add(prereq[i][0]);
+        for(int[] pre: prereq){
+            degree[pre[0]]++;
+            li.get(pre[1]).add(pre[0]);
         }
 
         for(int i=0;i<numc;i++){
