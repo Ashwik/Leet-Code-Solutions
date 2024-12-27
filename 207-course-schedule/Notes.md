@@ -1,1 +1,1 @@
-<h2>course-schedule Notes</h2><hr>[ Time taken: 28 m 15 s ]
+<h2>course-schedule Notes</h2><hr>[ Time taken: 20 m 6 s ]
