@@ -1,25 +1,25 @@
 class Solution {
     public void merge(int[] nums, int st,int en,int mid){
-        ArrayList<Integer> li = new ArrayList<>();
-        
+        int arr[] = new int[en-st];
+        int k =0;
         int i = st,j=mid;
         while(i<mid && j<en){
             if(nums[i]<nums[j]){
-                li.add(nums[i]);i++;
+                arr[k++] = nums[i++];
             }else{
-                li.add(nums[j]);j++;
+                arr[k++] = nums[j++];
             }
         }
         while(i<mid){
-            li.add(nums[i]);i++;
+           arr[k++] = nums[i++];
         }
         while(j<en){
-            li.add(nums[j]);j++;
+           arr[k++] = nums[j++];
         }
 
         i = st;
-        for(int num: li){
-            nums[i]=num;i++;
+        for(j=0;j<arr.length;){
+            nums[i++]=arr[j++];
         }
         return;
     }
